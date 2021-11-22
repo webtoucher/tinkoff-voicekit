@@ -17,8 +17,8 @@ export default class TinkoffSpeechToText extends TinkoffApi{
     protected api
     private readonly storage: TinkoffStorage
 
-    constructor(username: string, accessKeyId: string, secretAccessKey: string) {
-        super(username, accessKeyId, secretAccessKey)
+    constructor(issuer: string, subject: string, accessKeyId: string, secretAccessKey: string) {
+        super(issuer, subject, accessKeyId, secretAccessKey)
         this.storage = new TinkoffStorage(accessKeyId, secretAccessKey)
         const proto = (grpc.loadPackageDefinition(
             protoLoader.loadSync(

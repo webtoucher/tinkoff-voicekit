@@ -15,8 +15,8 @@ export {
 export default class TinkoffTextToSpeech extends TinkoffApi{
     protected api
 
-    constructor(username: string, accessKeyId: string, secretAccessKey: string) {
-        super(username, accessKeyId, secretAccessKey)
+    constructor(issuer: string, subject: string, accessKeyId: string, secretAccessKey: string) {
+        super(issuer, subject, accessKeyId, secretAccessKey)
         const proto = (grpc.loadPackageDefinition(
             protoLoader.loadSync(
                 path.resolve('proto/apis/tinkoff/cloud/tts/v1/tts.proto'),

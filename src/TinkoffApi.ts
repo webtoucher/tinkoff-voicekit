@@ -4,21 +4,21 @@ import grpc from '@grpc/grpc-js'
 export default class TinkoffApi {
     protected readonly credentials
 
-    constructor(username: string, accessKeyId: string, secretAccessKey: string) {
-        const token = jwt.sign({}, secretAccessKey, {
-            keyid: accessKeyId,
-            subject: username,
-            algorithm: 'HS256',
-            expiresIn: '1 year',
-            audience: 'tinkoff.cloud.stt',
-            issuer: 'tinkoff_mobile_bank_api',
-        })
-        const metadata = new grpc.Metadata()
-        metadata.set('authorization', `Bearer ${token}`);
-        const channelCredentials = grpc.credentials.createSsl()
+    constructor(issuer: string, subject: string, accessKeyId: string, secretAccessKey: string) {
         const callCredentials = grpc.credentials.createFromMetadataGenerator((params, callback) => {
+            const token = jwt.sign({}, new Buffer(secretAccessKey, 'base64'), {
+                keyid: accessKeyId,
+                algorithm: 'HS256',
+                expiresIn: '1 year',
+                audience: params['service_url'].split('/').pop(),
+                issuer,
+                subject,
+            })
+            console.log('DBG', `Bearer ${token}`)
+            const metadata = new grpc.Metadata()
+            metadata.set('authorization', `Bearer ${token}`);
             callback(null, metadata)
         })
-        this.credentials = grpc.credentials.combineChannelCredentials(channelCredentials, callCredentials)
+        this.credentials = grpc.credentials.combineChannelCredentials(grpc.credentials.createSsl(), callCredentials)
     }
 }
