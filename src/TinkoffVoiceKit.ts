@@ -5,17 +5,17 @@ import TinkoffLongRunning, {
     ListOperationsRequest,
     WaitOperationRequest,
     WatchOperationsRequest,
-} from './TinkoffLongRunning'
+} from './TinkoffLongRunning.js'
 
 import TinkoffSpeechToText, {
     LongRunningRecognizeRequest,
     RecognizeRequest,
-} from './TinkoffSpeechToText'
+} from './TinkoffSpeechToText.js'
 
 import TinkoffTextToSpeech, {
     SynthesizeSpeechRequest,
     ListVoicesRequest,
-} from './TinkoffTextToSpeech'
+} from './TinkoffTextToSpeech.js'
 
 export {
     TinkoffLongRunning,

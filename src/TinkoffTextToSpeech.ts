@@ -1,11 +1,11 @@
 import grpc from '@grpc/grpc-js'
 import protoLoader from '@grpc/proto-loader'
-import { ProtoGrpcType } from './tts'
+import { ProtoGrpcType } from './tts.js'
 
 import path from 'path'
-import TinkoffApi from './TinkoffApi'
-import {SynthesizeSpeechRequest} from "./tinkoff/cloud/tts/v1/SynthesizeSpeechRequest";
-import {ListVoicesRequest} from "./tinkoff/cloud/tts/v1/ListVoicesRequest";
+import TinkoffApi from './TinkoffApi.js'
+import {SynthesizeSpeechRequest} from './tinkoff/cloud/tts/v1/SynthesizeSpeechRequest.js'
+import {ListVoicesRequest} from './tinkoff/cloud/tts/v1/ListVoicesRequest.js'
 
 export {
     SynthesizeSpeechRequest,

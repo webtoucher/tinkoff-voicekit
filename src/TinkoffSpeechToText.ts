@@ -1,12 +1,12 @@
 import grpc from '@grpc/grpc-js'
 import protoLoader from '@grpc/proto-loader'
-import { ProtoGrpcType } from './stt'
+import { ProtoGrpcType } from './stt.js'
 
 import path from 'path'
 import TinkoffStorage from 'tinkoff-storage-sdk'
-import TinkoffApi from './TinkoffApi'
-import { LongRunningRecognizeRequest } from './tinkoff/cloud/stt/v1/LongRunningRecognizeRequest'
-import { RecognizeRequest } from './tinkoff/cloud/stt/v1/RecognizeRequest'
+import TinkoffApi from './TinkoffApi.js'
+import { LongRunningRecognizeRequest } from './tinkoff/cloud/stt/v1/LongRunningRecognizeRequest.js'
+import { RecognizeRequest } from './tinkoff/cloud/stt/v1/RecognizeRequest.js'
 
 export {
     LongRunningRecognizeRequest,

@@ -1,15 +1,15 @@
 import grpc from '@grpc/grpc-js'
 import protoLoader from '@grpc/proto-loader'
-import { ProtoGrpcType } from './longrunning'
+import { ProtoGrpcType } from './longrunning.js'
 
 import path from 'path'
-import TinkoffApi from './TinkoffApi'
-import { CancelOperationRequest } from './tinkoff/cloud/longrunning/v1/CancelOperationRequest'
-import { DeleteOperationRequest } from './tinkoff/cloud/longrunning/v1/DeleteOperationRequest'
-import { GetOperationRequest } from './tinkoff/cloud/longrunning/v1/GetOperationRequest'
-import { ListOperationsRequest } from './tinkoff/cloud/longrunning/v1/ListOperationsRequest'
-import { WaitOperationRequest } from './tinkoff/cloud/longrunning/v1/WaitOperationRequest'
-import { WatchOperationsRequest } from './tinkoff/cloud/longrunning/v1/WatchOperationsRequest'
+import TinkoffApi from './TinkoffApi.js'
+import { CancelOperationRequest } from './tinkoff/cloud/longrunning/v1/CancelOperationRequest.js'
+import { DeleteOperationRequest } from './tinkoff/cloud/longrunning/v1/DeleteOperationRequest.js'
+import { GetOperationRequest } from './tinkoff/cloud/longrunning/v1/GetOperationRequest.js'
+import { ListOperationsRequest } from './tinkoff/cloud/longrunning/v1/ListOperationsRequest.js'
+import { WaitOperationRequest } from './tinkoff/cloud/longrunning/v1/WaitOperationRequest.js'
+import { WatchOperationsRequest } from './tinkoff/cloud/longrunning/v1/WatchOperationsRequest.js'
 
 export {
     CancelOperationRequest,
