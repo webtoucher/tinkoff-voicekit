@@ -1,6 +1,6 @@
 {
   "name": "tinkoff-voicekit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Library for converting speech to text and vice versa",
   "repository": "https://github.com/webtoucher/tinkoff-voicekit",
   "type": "module",
@@ -11,8 +11,8 @@
     "proto/"
   ],
   "scripts": {
-    "prepare": "npm run generate-proto-types tinkoff/cloud/longrunning/v1/longrunning.proto && npm run generate-proto-types tinkoff/cloud/stt/v1/stt.proto && npm run generate-proto-types tinkoff/cloud/tts/v1/tts.proto && tsc -p tsconfig.json",
-    "generate-proto-types": "proto-loader-gen-types --keepCase --longs=String --enums=String --defaults --oneofs --json --includeComments --includeDirs proto/apis/ proto/googleapis/ --grpcLib=@grpc/grpc-js --outDir=src/",
+    "prepare": "npm run generate-proto-types ./tinkoff/cloud/longrunning/v1/longrunning.proto && npm run generate-proto-types ./tinkoff/cloud/stt/v1/stt.proto && npm run generate-proto-types ./tinkoff/cloud/tts/v1/tts.proto && tsc -p tsconfig.json",
+    "generate-proto-types": "proto-loader-gen-types --keepCase --longs=String --enums=String --defaults --oneofs --json --includeComments --includeDirs ./proto/apis/ ./proto/googleapis/ --grpcLib=@grpc/grpc-js --outDir=src/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": ["tinkoff", "voicekit"],
