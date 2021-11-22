@@ -2,7 +2,8 @@ import grpc from '@grpc/grpc-js'
 import protoLoader from '@grpc/proto-loader'
 import { ProtoGrpcType } from './longrunning.js'
 
-import path from 'path'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
 import TinkoffApi from './TinkoffApi.js'
 import { CancelOperationRequest } from './tinkoff/cloud/longrunning/v1/CancelOperationRequest.js'
 import { DeleteOperationRequest } from './tinkoff/cloud/longrunning/v1/DeleteOperationRequest.js'
@@ -20,6 +21,8 @@ export {
     WatchOperationsRequest,
 }
 
+const root = dirname(dirname(fileURLToPath(import.meta.url)))
+
 export default class TinkoffLongRunning extends TinkoffApi{
     protected api
 
@@ -27,18 +30,22 @@ export default class TinkoffLongRunning extends TinkoffApi{
         super(issuer, subject, accessKeyId, secretAccessKey)
         const proto = (grpc.loadPackageDefinition(
             protoLoader.loadSync(
-                path.resolve('proto/apis/tinkoff/cloud/longrunning/v1/longrunning.proto'),
+                join(root, 'proto/apis/tinkoff/cloud/longrunning/v1/longrunning.proto'),
                 {
                     keepCase: false,
                     longs: String,
                     enums: String,
                     defaults: true,
-                    oneofs: true
+                    oneofs: true,
+                    includeDirs: [
+                        join(root, 'proto/apis/'),
+                        join(root, 'proto/googleapis/'),
+                    ],
                 }
             )
         ) as unknown) as ProtoGrpcType
 
-        this.api = new proto.tinkoff.cloud.longrunning.v1.Operations('longrunning.tinkoff.ru:443', this.credentials)
+        this.api = new proto.tinkoff.cloud.longrunning.v1.Operations('api.tinkoff.ai:443', this.credentials)
     }
 
     /**

@@ -2,7 +2,8 @@ import grpc from '@grpc/grpc-js'
 import protoLoader from '@grpc/proto-loader'
 import { ProtoGrpcType } from './tts.js'
 
-import path from 'path'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
 import TinkoffApi from './TinkoffApi.js'
 import {SynthesizeSpeechRequest} from './tinkoff/cloud/tts/v1/SynthesizeSpeechRequest.js'
 import {ListVoicesRequest} from './tinkoff/cloud/tts/v1/ListVoicesRequest.js'
@@ -12,6 +13,8 @@ export {
     ListVoicesRequest,
 }
 
+const root = dirname(dirname(fileURLToPath(import.meta.url)))
+
 export default class TinkoffTextToSpeech extends TinkoffApi{
     protected api
 
@@ -19,18 +22,22 @@ export default class TinkoffTextToSpeech extends TinkoffApi{
         super(issuer, subject, accessKeyId, secretAccessKey)
         const proto = (grpc.loadPackageDefinition(
             protoLoader.loadSync(
-                path.resolve('proto/apis/tinkoff/cloud/tts/v1/tts.proto'),
+                join(root, 'proto/apis/tinkoff/cloud/tts/v1/tts.proto'),
                 {
                     keepCase: false,
                     longs: String,
                     enums: String,
                     defaults: true,
-                    oneofs: true
+                    oneofs: true,
+                    includeDirs: [
+                        join(root, 'proto/apis/'),
+                        join(root, 'proto/googleapis/'),
+                    ],
                 }
             )
         ) as unknown) as ProtoGrpcType
 
-        this.api = new proto.tinkoff.cloud.tts.v1.TextToSpeech('tts.tinkoff.ru:443', this.credentials)
+        this.api = new proto.tinkoff.cloud.tts.v1.TextToSpeech('api.tinkoff.ai:443', this.credentials)
     }
 
     public async synthesize(params: SynthesizeSpeechRequest) {

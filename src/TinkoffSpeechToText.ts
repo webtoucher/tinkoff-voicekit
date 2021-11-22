@@ -2,7 +2,8 @@ import grpc from '@grpc/grpc-js'
 import protoLoader from '@grpc/proto-loader'
 import { ProtoGrpcType } from './stt.js'
 
-import path from 'path'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
 import TinkoffStorage from 'tinkoff-storage-sdk'
 import TinkoffApi from './TinkoffApi.js'
 import { LongRunningRecognizeRequest } from './tinkoff/cloud/stt/v1/LongRunningRecognizeRequest.js'
@@ -13,6 +14,8 @@ export {
     RecognizeRequest,
 }
 
+const root = dirname(dirname(fileURLToPath(import.meta.url)))
+
 export default class TinkoffSpeechToText extends TinkoffApi{
     protected api
     private readonly storage: TinkoffStorage
@@ -22,18 +25,22 @@ export default class TinkoffSpeechToText extends TinkoffApi{
         this.storage = new TinkoffStorage(accessKeyId, secretAccessKey)
         const proto = (grpc.loadPackageDefinition(
             protoLoader.loadSync(
-                path.resolve('proto/apis/tinkoff/cloud/stt/v1/stt.proto'),
+                join(root, 'proto/apis/tinkoff/cloud/stt/v1/stt.proto'),
                 {
                     keepCase: false,
                     longs: String,
                     enums: String,
                     defaults: true,
-                    oneofs: true
+                    oneofs: true,
+                    includeDirs: [
+                        join(root, 'proto/apis/'),
+                        join(root, 'proto/googleapis/'),
+                    ],
                 }
             )
         ) as unknown) as ProtoGrpcType
 
-        this.api = new proto.tinkoff.cloud.stt.v1.SpeechToText('stt.tinkoff.ru:443', this.credentials)
+        this.api = new proto.tinkoff.cloud.stt.v1.SpeechToText('api.tinkoff.ai:443', this.credentials)
     }
 
     public async recognize(params: RecognizeRequest) {
