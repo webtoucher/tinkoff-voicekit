@@ -1,0 +1,9 @@
+.idea
+.vscode
+lib
+node_modules
+src/google
+src/tinkoff
+src/longrunning.ts
+src/stt.ts
+src/tts.ts

@@ -1,0 +1,32 @@
+{
+  "name": "tinkoff-voicekit",
+  "version": "1.0.0",
+  "description": "Library for converting speech to text and vice versa",
+  "repository": "https://github.com/webtoucher/tinkoff-voicekit",
+  "type": "module",
+  "main": "./lib/TinkoffVoiceKit.js",
+  "types": "./lib/TinkoffVoiceKit.d.ts",
+  "files": [
+    "lib/",
+    "proto/"
+  ],
+  "scripts": {
+    "prepare": "npm run generate-proto-types tinkoff/cloud/longrunning/v1/longrunning.proto && npm run generate-proto-types tinkoff/cloud/stt/v1/stt.proto && npm run generate-proto-types tinkoff/cloud/tts/v1/tts.proto && tsc -p tsconfig.json",
+    "generate-proto-types": "proto-loader-gen-types --keepCase --longs=String --enums=String --defaults --oneofs --json --includeComments --includeDirs proto/apis/ proto/googleapis/ --grpcLib=@grpc/grpc-js --outDir=src/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["tinkoff", "voicekit"],
+  "author": "webtoucher",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "@grpc/grpc-js": "1.4.4",
+    "@grpc/proto-loader": "0.6.7",
+    "jsonwebtoken": "8.5.1",
+    "tinkoff-storage-sdk": "1.0.3"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "8.5.6",
+    "@types/node": "16.11.9",
+    "typescript": "4.5.2"
+  }
+}
