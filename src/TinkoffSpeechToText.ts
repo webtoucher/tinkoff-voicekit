@@ -18,11 +18,11 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)))
 
 export default class TinkoffSpeechToText extends TinkoffApi{
     protected api
-    private readonly storage: TinkoffStorage
+    private readonly s3: TinkoffStorage
 
     constructor(issuer: string, subject: string, accessKeyId: string, secretAccessKey: string) {
         super(issuer, subject, accessKeyId, secretAccessKey)
-        this.storage = new TinkoffStorage(accessKeyId, secretAccessKey)
+        this.s3 = new TinkoffStorage(accessKeyId, secretAccessKey)
         const proto = (grpc.loadPackageDefinition(
             protoLoader.loadSync(
                 join(root, 'proto/apis/tinkoff/cloud/stt/v1/stt.proto'),
@@ -41,6 +41,10 @@ export default class TinkoffSpeechToText extends TinkoffApi{
         ) as unknown) as ProtoGrpcType
 
         this.api = new proto.tinkoff.cloud.stt.v1.SpeechToText('api.tinkoff.ai:443', this.credentials)
+    }
+
+    public get storage(): TinkoffStorage {
+        return this.s3
     }
 
     public async recognize(params: RecognizeRequest) {
