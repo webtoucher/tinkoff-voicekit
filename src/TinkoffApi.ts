@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import grpc from '@grpc/grpc-js'
+import grpc from 'grpc'
 
 export default class TinkoffApi {
     protected readonly credentials

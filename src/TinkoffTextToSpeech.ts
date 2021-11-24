@@ -1,4 +1,4 @@
-import grpc from '@grpc/grpc-js'
+import grpc from 'grpc'
 import protoLoader from '@grpc/proto-loader'
 import { ProtoGrpcType } from './tts.js'
 
