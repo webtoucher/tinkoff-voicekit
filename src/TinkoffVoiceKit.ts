@@ -1,11 +1,11 @@
-import TinkoffLongRunning, {
+import TinkoffLongRunningOperations, {
     CancelOperationRequest,
     DeleteOperationRequest,
     GetOperationRequest,
     ListOperationsRequest,
     WaitOperationRequest,
     WatchOperationsRequest,
-} from './TinkoffLongRunning.js'
+} from './TinkoffLongRunningOperations.js'
 
 import TinkoffSpeechToText, {
     LongRunningRecognizeRequest,
@@ -18,7 +18,7 @@ import TinkoffTextToSpeech, {
 } from './TinkoffTextToSpeech.js'
 
 export {
-    TinkoffLongRunning,
+    TinkoffLongRunningOperations,
     CancelOperationRequest,
     DeleteOperationRequest,
     GetOperationRequest,

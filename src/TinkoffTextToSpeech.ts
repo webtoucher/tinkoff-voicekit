@@ -1,73 +1,34 @@
-import grpc from 'grpc'
-import protoLoader from '@grpc/proto-loader'
-import { ProtoGrpcType } from './tts.js'
-
-import { join, dirname } from 'path'
-import { fileURLToPath } from 'url'
 import TinkoffApi from './TinkoffApi.js'
-import {SynthesizeSpeechRequest} from './tinkoff/cloud/tts/v1/SynthesizeSpeechRequest.js'
-import {ListVoicesRequest} from './tinkoff/cloud/tts/v1/ListVoicesRequest.js'
+import { ListVoicesRequest } from './tts/ListVoicesRequest'
+import { ListVoicesResponses__Output } from './tts/ListVoicesResponses'
+import { SynthesizeSpeechRequest } from './tts/SynthesizeSpeechRequest'
+import { SynthesizeSpeechResponse__Output } from './tts/SynthesizeSpeechResponse'
 
 export {
     SynthesizeSpeechRequest,
     ListVoicesRequest,
 }
 
-const root = dirname(dirname(fileURLToPath(import.meta.url)))
-
 export default class TinkoffTextToSpeech extends TinkoffApi{
-    protected api
-
     constructor(issuer: string, subject: string, accessKeyId: string, secretAccessKey: string) {
-        super(issuer, subject, accessKeyId, secretAccessKey)
-        const proto = (grpc.loadPackageDefinition(
-            protoLoader.loadSync(
-                join(root, 'proto/apis/tinkoff/cloud/tts/v1/tts.proto'),
-                {
-                    keepCase: false,
-                    longs: String,
-                    enums: String,
-                    defaults: true,
-                    oneofs: true,
-                    includeDirs: [
-                        join(root, 'proto/apis/'),
-                        join(root, 'proto/googleapis/'),
-                    ],
-                }
-            )
-        ) as unknown) as ProtoGrpcType
-
-        this.api = new proto.tinkoff.cloud.tts.v1.TextToSpeech('api.tinkoff.ai:443', this.credentials)
+        super(issuer, subject, accessKeyId, secretAccessKey, 'tinkoff.cloud.tts.v1.TextToSpeech')
     }
 
-    public async synthesize(params: SynthesizeSpeechRequest) {
-        return await new Promise((resolve, reject) => {
-            this.api.synthesize(params, (err, data) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve(data)
-                }
-            })
-        })
+    public async synthesize(params: SynthesizeSpeechRequest): Promise<SynthesizeSpeechResponse__Output> {
+        return await this.request('post', `stt:recognize`, params) as SynthesizeSpeechResponse__Output
     }
 
-    public async listVoices(params: ListVoicesRequest) {
-        return await new Promise((resolve, reject) => {
-            this.api.listVoices(params, (err, data) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve(data)
-                }
-            })
-        })
+    public async listVoices(params: ListVoicesRequest): Promise<ListVoicesResponses__Output> {
+        return await this.request('post', `stt:recognize`, params) as ListVoicesResponses__Output
     }
 
     /**
      * Streaming synthesis.
      */
-    public streamingSynthesize(params: SynthesizeSpeechRequest) {
-        return this.api.streamingSynthesize(params)
+    public async streamingSynthesize(params: SynthesizeSpeechRequest): Promise<null> {
+        // todo
+        return await new Promise((resolve, reject) => {
+            reject('Not implemented yet')
+        })
     }
 }
