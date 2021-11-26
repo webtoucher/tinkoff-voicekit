@@ -6,7 +6,7 @@ export default class TinkoffApi {
     private readonly api: RequestAPI<Request, CoreOptions, RequiredUriUrl>
 
     constructor(issuer: string, subject: string, accessKeyId: string, secretAccessKey: string, audience: string) {
-        const token = jwt.sign({}, new Buffer(secretAccessKey, 'base64'), {
+        const token = jwt.sign({}, Buffer.from(secretAccessKey, 'base64'), {
             keyid: accessKeyId,
             algorithm: 'HS256',
             expiresIn: '1 year',
