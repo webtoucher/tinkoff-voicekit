@@ -1,6 +1,7 @@
 import type { Any, Any__Output } from '../base/Any'
 import type { OperationState } from './OperationState'
 import type { Status, Status__Output } from '../base/Status'
+import type { RecognizeResponse__Output } from '../stt/RecognizeResponse'
 
 export interface Operation {
     /**
@@ -73,7 +74,7 @@ export interface Operation__Output {
     /**
      * Operation response if successfully finished
      */
-    response?: Any__Output | null
+    response?: RecognizeResponse__Output
 
     /**
      * Metafield x-client-request-id specified at operation creation
