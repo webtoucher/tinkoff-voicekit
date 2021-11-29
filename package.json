@@ -1,6 +1,6 @@
 {
   "name": "tinkoff-voicekit",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Library for converting speech to text and vice versa",
   "repository": "https://github.com/webtoucher/tinkoff-voicekit",
   "type": "module",
@@ -19,7 +19,7 @@
   "dependencies": {
     "jsonwebtoken": "8.5.1",
     "request": "2.88.2",
-    "tinkoff-storage-sdk": "1.0.4"
+    "tinkoff-storage-sdk": "1.0.5"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "8.5.6",
