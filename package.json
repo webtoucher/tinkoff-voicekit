@@ -19,7 +19,7 @@
   "dependencies": {
     "jsonwebtoken": "8.5.1",
     "request": "2.88.2",
-    "tinkoff-storage-sdk": "1.0.5"
+    "tinkoff-storage-sdk": "1.0.6"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "8.5.6",
