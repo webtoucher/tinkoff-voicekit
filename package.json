@@ -1,6 +1,6 @@
 {
   "name": "tinkoff-voicekit",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Library for converting speech to text and vice versa",
   "repository": "https://github.com/webtoucher/tinkoff-voicekit",
   "type": "module",
